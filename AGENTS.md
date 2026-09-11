@@ -18,7 +18,7 @@ Read, in order:
 - Keep the universal harness small, auditable, and model-agnostic.
 - Do not turn this project into a local MCP server, shell/filesystem runtime, browser driver, unofficial ChatGPT API adapter, or second-agent coordinator.
 - Do not add a large generic skill/router framework merely because other agent products have one.
-- Frontier-model judgment is a feature. Add instruction only when it addresses a recurring, observable failure mode.
+- Model judgment is a feature. Add instruction only when it addresses a recurring, observable failure mode.
 - Target-project identity belongs in that target repository's `WEBCHAT.md` and authoritative files, not in the universal harness.
 - Existing nearby projects are prior art to reuse or integrate with, not competitors to reimplement.
 - This repository's own assumptions may be wrong. Re-audit the ecosystem before major architectural expansion.
@@ -32,12 +32,14 @@ canonical semantic harness
         +
 small target-repository adapter
         +
-frontier Pro model
+autonomous owner model
         +
 native GitHub actions
 ```
 
-The bootstrap model prepares the target adapter; it does not become the long-term controller. The later Pro model owns project-level audit, prioritization, execution, verification, and re-audit.
+The bootstrap model prepares the target adapter; it does not become the long-term controller. The owner model handles project-level audit, prioritization, execution, verification, and re-audit.
+
+Model identity is not part of the protocol. Roles are defined by behavior and task responsibility, not by product/version names or subscription tiers.
 
 This hypothesis is falsifiable. If a mature existing project already provides the same layer more cleanly, narrow, integrate, or stop rather than defending novelty.
 
@@ -47,7 +49,7 @@ Prioritize evidence over packaging:
 
 1. keep `HARNESS.md` and `WEBCHAT.md` semantics minimal and non-overlapping;
 2. test bootstrap quality on different repository types;
-3. test autonomous ownership runs with the same target adapter across Pro models;
+3. test autonomous ownership runs with the same target adapter across different capable models;
 4. measure closure, intervention, drift, unnecessary construction, and verification quality;
 5. simplify rules that do not measurably help;
 6. only then consider sync/install tooling.
