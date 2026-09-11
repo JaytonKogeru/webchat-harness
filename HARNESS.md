@@ -1,6 +1,6 @@
 # WebChat Harness — Canonical Operating Contract
 
-Version: **0.2.0-draft**
+Version: **0.2.1-draft**
 
 This contract is for **ordinary ChatGPT Web working through native repository tools such as the GitHub connection**. It is intentionally small. It defines operating invariants, not a mandatory software-development methodology.
 
@@ -36,7 +36,7 @@ Do not mechanically drain an old plan. Choose the highest-value resolvable gap n
 
 Before adding infrastructure, determine whether the need can be eliminated, existing project code reused, or a mature standard solution adopted. Prefer simplification, consolidation, replacement, and deletion over speculative abstraction or duplicate machinery.
 
-Do not expand scope merely because more work is possible. Let the frontier model choose the engineering/research method appropriate to the problem unless the target project contains a real domain constraint.
+Do not expand scope merely because more work is possible. Let the model choose the engineering/research method appropriate to the problem unless the target project contains a real domain constraint.
 
 ## 5. Implement, verify, and challenge the result
 
