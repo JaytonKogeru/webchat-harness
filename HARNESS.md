@@ -1,6 +1,6 @@
 # WebChat Harness — Canonical Operating Contract
 
-Version: **0.2.1-draft**
+Version: **0.2.2-draft**
 
 This contract is for **ordinary ChatGPT Web working through native repository tools such as the GitHub connection**. It is intentionally small. It defines operating invariants, not a mandatory software-development methodology.
 
@@ -14,7 +14,9 @@ Do not infer the project's purpose merely from whichever artifacts are most nume
 
 ## 2. Establish reality before trusting inherited plans
 
-Treat the **live repository and externally verifiable evidence** as the source of truth.
+Treat the **live target repository and externally verifiable evidence** as the source of current-state truth unless the project explicitly defines another authoritative source.
+
+Use related repositories, available ChatGPT Project context, prior conversations, and project files to recover intent, history, dependencies, prior decisions, and adjacent work. These are context sources, not automatic proof of the target repository's current state. Do not claim access to context that is not actually available.
 
 Existing architecture, documentation, schemas, roadmaps, issues, agents, task systems, and earlier model decisions may be stale, redundant, incorrect, or unnecessary. Inspect enough of the real system to determine what actually exists and what is actually true.
 
