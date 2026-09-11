@@ -1,110 +1,54 @@
 # webchat-harness
 
-A **thin native harness for ChatGPT Web + GitHub** that helps a capable Web Chat model act as a repository-grounded autonomous engineering/research owner **without adding a local MCP server, browser automation layer, shell daemon, or second coordinator agent**.
+A **thin Agent Skill for autonomous repository ownership in ChatGPT Web + GitHub**.
 
-The design is deliberately small:
+The repository is the canonical development source. The installed/attached [`SKILL.md`](SKILL.md) is the runtime interface. Users should not need to ask a model to open several files in this repository on every run.
 
-> **Universal behavior lives in one canonical harness. Project identity and context sources live in the target repository. An autonomous owner model owns the outcome.**
+## Use
 
-## Core idea
-
-ChatGPT Web already provides reasoning and native GitHub actions. The harness should not teach the model a giant coding methodology. It should only reduce the failure modes that matter for autonomous project work:
-
-- optimizing the wrong thing;
-- trusting stale plans over the live repository;
-- stopping at analysis, planning, a PR, or partial success;
-- mechanically draining an old task queue after priorities changed;
-- building unnecessary infrastructure instead of reusing/simplifying;
-- claiming verification that did not actually occur;
-- failing to re-audit after material changes;
-- stopping before a real terminal condition.
-
-## Two-stage use
-
-### 1. Bootstrap the target repository
-
-Use [`BOOTSTRAP.md`](BOOTSTRAP.md) once with any model capable of accurately reconstructing the target repository's purpose, context, and source-of-truth structure.
-
-The bootstrap step does **not** own or advance the whole project. It creates a short root-level `WEBCHAT.md` adapter containing only project-local information:
-
-- actual objective;
-- meaningful progress signals;
-- hard project/domain truths;
-- context sources, including materially related GitHub repositories and any ChatGPT Project context actually available;
-- source-of-truth map;
-- verification surfaces;
-- authority boundaries.
-
-Related repositories and project conversations are background sources, not automatic truth. The live target repository remains authoritative for its current implementation/state unless the project explicitly defines another source of truth.
-
-This prevents each later ownership run from having to rediscover project identity and background from scratch.
-
-### 2. Run the autonomous owner
-
-Use the launcher in [`LAUNCH.md`](LAUNCH.md) with whichever model you want to act as the autonomous project owner.
-
-The ownership run loads:
+Once the skill is installed or attached to the ChatGPT Project, the normal commands are intentionally tiny:
 
 ```text
-canonical HARNESS.md
-        +
-target WEBCHAT.md
-        +
-relevant context sources
-        +
-live target repository/evidence
+用 webchat-harness bootstrap <owner/repo>。
 ```
-
-Then it owns the project outcome through:
 
 ```text
-objective → inspect → audit → choose → act → verify → adversarial review → re-audit
-   ↑                                                                        │
-   └────────────────────────────────────────────────────────────────────────┘
+用 webchat-harness 接管 <owner/repo>，直接开始。
 ```
 
-The model chooses the appropriate engineering/research method. Plans, Issues, PRDs, work packets, commits, and PRs are optional intermediate artifacts, not definitions of completion.
+Bootstrap creates or refreshes the target repository's short `WEBCHAT.md` adapter. Ownership mode then uses that adapter plus the live repository/evidence to work autonomously toward the real project outcome.
 
-Model choice is deliberately outside the protocol. The harness defines roles and operating invariants, not product tiers or model names.
+## Install / attach
+
+`webchat-harness` follows the open Agent Skills format: `SKILL.md` is the single runtime entrypoint.
+
+Where ChatGPT Skills are available, install/upload this as a Skill once and invoke it by name. Where Skills are not available on the current account/surface, add `SKILL.md` once to the relevant ChatGPT Project sources (or copy its contents into the Project instructions) rather than repeatedly fetching this GitHub repository during every task.
+
+Model choice is outside the protocol.
+
+## Runtime design
+
+The skill keeps only a small control kernel:
+
+- own the real project outcome;
+- use `WEBCHAT.md` for project identity/context and live authoritative evidence for current reality;
+- choose the highest-value unresolved gap and act autonomously;
+- prefer reuse/simplification over unnecessary construction;
+- verify material work and reassess from the new state;
+- stop only at diminishing returns, a genuine external blocker, or an unauthorized irreversible action;
+- never invent access, evidence, verification, execution, or authority.
+
+Project-specific truth belongs in each target repository's `WEBCHAT.md` and authoritative project files, not in this universal skill.
 
 ## Repository layout
 
-- [`HARNESS.md`](HARNESS.md) — canonical universal operating contract.
-- [`BOOTSTRAP.md`](BOOTSTRAP.md) — one-time target-repository integration prompt and `WEBCHAT.md` shape.
-- [`LAUNCH.md`](LAUNCH.md) — copy/paste launch/resume/review prompts for autonomous ownership runs.
+- [`SKILL.md`](SKILL.md) — canonical runtime skill: bootstrap + ownership modes.
 - [`research/LANDSCAPE.md`](research/LANDSCAPE.md) — prior-art audit and non-duplication boundary.
 - [`evals/README.md`](evals/README.md) — generic behavioral evaluation criteria.
-- [`AGENTS.md`](AGENTS.md) — instructions for agents modifying this harness repository itself.
+- [`AGENTS.md`](AGENTS.md) — instructions for agents modifying this repository itself.
 
-## What this project is not
+## Boundary
 
-`webchat-harness` is intentionally **not**:
+This project is intentionally not a local coding runtime, MCP filesystem/shell server, browser driver, second-agent coordinator, large role/skill router, or mandatory PRD/TDD framework. Existing mature tools should be reused rather than rebuilt.
 
-- a local coding/runtime environment;
-- an MCP filesystem/shell server;
-- a browser driver around chatgpt.com;
-- a second-agent coordinator;
-- a replacement for Codex, Claude Code, OpenHands, SWE-agent, Rel.AI, or WebGPT Orchestrator;
-- a large role/skill router;
-- a mandatory PRD/TDD workflow;
-- an attempt to encode generic senior-engineer knowledge the model already has.
-
-If an existing mature project already solves a capability better, use it rather than rebuilding it here.
-
-## Design rule: thin harness, capable model
-
-The universal contract should stay small enough to audit as a whole. Project-specific truths and context pointers belong in the target repository's `WEBCHAT.md` and existing authoritative files. Generic procedural instruction should be added only when field evidence shows a recurring failure that the model does not reliably correct itself.
-
-## Prior-art boundary
-
-ChatGPT Web harnessing is not a new category. The closest systems found so far are documented in [`research/LANDSCAPE.md`](research/LANDSCAPE.md), including WebGPT Orchestrator, durable ChatGPT Web workflow skills, and local MCP/runtime harnesses.
-
-The narrower product hypothesis here is:
-
-> **native standard ChatGPT Web + native GitHub connector + no required local runtime/browser driver/second agent + a thin project-ownership semantic contract + a small target-repository adapter.**
-
-That boundary should remain sharp. If this repository starts growing a local runtime, browser automation stack, workflow engine, or generic skill marketplace, it is probably duplicating a stronger existing wheel.
-
-## Status
-
-**v0.2 design scaffold.** Current priority is validating the two-stage bootstrap/ownership pattern on real repositories before building any installer, CLI, package, or plugin ecosystem.
+**Status: v0.3 draft — skill-first packaging for real project trials.**
