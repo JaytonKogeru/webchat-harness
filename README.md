@@ -4,7 +4,7 @@ A **thin native harness for ChatGPT Web + GitHub** that helps a capable Web Chat
 
 The design is deliberately small:
 
-> **Universal behavior lives in one canonical harness. Project identity lives in the target repository. An autonomous owner model owns the outcome.**
+> **Universal behavior lives in one canonical harness. Project identity and context sources live in the target repository. An autonomous owner model owns the outcome.**
 
 ## Core idea
 
@@ -23,18 +23,21 @@ ChatGPT Web already provides reasoning and native GitHub actions. The harness sh
 
 ### 1. Bootstrap the target repository
 
-Use [`BOOTSTRAP.md`](BOOTSTRAP.md) once with any model capable of accurately reconstructing the target repository's purpose and source-of-truth structure.
+Use [`BOOTSTRAP.md`](BOOTSTRAP.md) once with any model capable of accurately reconstructing the target repository's purpose, context, and source-of-truth structure.
 
-The bootstrap step does **not** own or advance the whole project. It inspects the target repository and creates a short root-level `WEBCHAT.md` adapter containing only project-local information:
+The bootstrap step does **not** own or advance the whole project. It creates a short root-level `WEBCHAT.md` adapter containing only project-local information:
 
 - actual objective;
 - meaningful progress signals;
 - hard project/domain truths;
+- context sources, including materially related GitHub repositories and any ChatGPT Project context actually available;
 - source-of-truth map;
 - verification surfaces;
 - authority boundaries.
 
-This prevents each later ownership run from having to infer project identity from a noisy repository from scratch.
+Related repositories and project conversations are background sources, not automatic truth. The live target repository remains authoritative for its current implementation/state unless the project explicitly defines another source of truth.
+
+This prevents each later ownership run from having to rediscover project identity and background from scratch.
 
 ### 2. Run the autonomous owner
 
@@ -46,6 +49,8 @@ The ownership run loads:
 canonical HARNESS.md
         +
 target WEBCHAT.md
+        +
+relevant context sources
         +
 live target repository/evidence
 ```
@@ -88,7 +93,7 @@ If an existing mature project already solves a capability better, use it rather 
 
 ## Design rule: thin harness, capable model
 
-The universal contract should stay small enough to audit as a whole. Project-specific truths belong in the target repository's `WEBCHAT.md` and existing authoritative files. Generic procedural instruction should be added only when field evidence shows a recurring failure that the model does not reliably correct itself.
+The universal contract should stay small enough to audit as a whole. Project-specific truths and context pointers belong in the target repository's `WEBCHAT.md` and existing authoritative files. Generic procedural instruction should be added only when field evidence shows a recurring failure that the model does not reliably correct itself.
 
 ## Prior-art boundary
 
