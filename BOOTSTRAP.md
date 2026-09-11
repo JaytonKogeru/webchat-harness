@@ -2,9 +2,11 @@
 
 A full autonomous run should not have to reconstruct the target project's identity from scratch every time.
 
-The recommended setup is a **one-time lightweight bootstrap** using a capable non-Pro Web Chat model (for example GPT-5.6 Sol Extra High), followed by autonomous runs with the Pro model of your choice.
+The recommended setup is a **one-time lightweight bootstrap** using any model capable of accurately reconstructing project-local truth, followed by autonomous ownership runs using whichever model the user chooses.
 
-The bootstrap model is **not** the project controller. Its job is only to compile project-local truth into a short adapter file that the later Pro run can load immediately.
+The bootstrap model is **not** the project controller. Its job is only to compile project-local truth into a short adapter file that later ownership runs can load immediately.
+
+Model choice is deliberately outside this protocol. The bootstrap role is defined by the task it performs, not by a specific model name, reasoning tier, subscription tier, or product label.
 
 ## Result
 
@@ -48,14 +50,14 @@ Do not turn `WEBCHAT.md` into a roadmap, issue list, coding style guide, methodo
 
 ## Bootstrap prompt
 
-Replace `<owner/repo>` and use this in standard Web Chat with GitHub connected. A strong non-Pro reasoning tier is usually sufficient because this step prepares context rather than owning the project outcome.
+Replace `<owner/repo>` and use this in standard Web Chat with GitHub connected.
 
 ```text
 Prepare <owner/repo> for autonomous use with JaytonKogeru/webchat-harness.
 
 Read the current canonical HARNESS.md from JaytonKogeru/webchat-harness, then inspect the target repository deeply enough to understand its actual purpose, meaningful progress signals, hard project/domain truths, authoritative state, and real verification surfaces.
 
-Do not execute the project's backlog or redesign the project in this run. Your task is only to create or refresh a concise root-level WEBCHAT.md project adapter for future Pro-model ownership runs.
+Do not execute the project's backlog or redesign the project in this run. Your task is only to create or refresh a concise root-level WEBCHAT.md project adapter for future autonomous ownership runs.
 
 WEBCHAT.md must contain: Objective, Meaningful progress, Project truths, Source-of-truth map, Verification surfaces, and Authority boundaries. Keep it concise and project-specific. Do not copy the universal harness, generic coding advice, stale task queues, or large existing documents into it. Link to authoritative repository files instead.
 
