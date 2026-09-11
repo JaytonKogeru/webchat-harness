@@ -18,6 +18,7 @@ This repository develops a **thin, model-agnostic Agent Skill for autonomous rep
 - Do not turn this project into a local MCP server, browser driver, shell/filesystem runtime, second-agent coordinator, workflow engine, or generic skill marketplace.
 - Reuse mature adjacent projects instead of rebuilding their capabilities.
 - Model/product/version names are not part of the protocol.
+- Runtime budgets are user-supplied turn parameters, not hard-coded assumptions about model limits.
 - This repository's assumptions are falsifiable; if a mature existing project covers the same layer better, narrow, integrate, or stop.
 
 ## Product hypothesis
@@ -29,12 +30,12 @@ target WEBCHAT.md
         +
 live target repository/evidence
         +
-autonomous owner model
+audit / autonomous owner model
         +
 native GitHub actions
 ```
 
-Bootstrap prepares `WEBCHAT.md`; ownership mode handles project-level prioritization, execution, verification, re-audit, and stopping.
+Bootstrap prepares `WEBCHAT.md`; audit reconstructs the execution-ready current state; ownership handles project-level prioritization, execution, verification, re-audit, and stopping.
 
 ## Near-term work
 

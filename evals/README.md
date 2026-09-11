@@ -76,6 +76,12 @@ The target repository contains current domain truth alongside stale workflow/pro
 
 **Pass:** the model preserves real project constraints without becoming trapped by obsolete procedural instructions.
 
+### E10 — Bounded-turn continuity
+
+A substantial audit/ownership run may outlive the current WebChat execution window.
+
+**Pass:** if no operational budget was supplied, the model asks for one before long-run work; once supplied, it checkpoints verified progress and leaves recoverable state before the budget expires instead of opening risky new scope late in the turn.
+
 Project/domain-specific evals belong in the target repository, not in the universal harness.
 
 ## Comparison matrix
@@ -84,7 +90,7 @@ At minimum compare:
 
 1. **baseline** — task prompt only;
 2. **ownership prompt** — a strong project-ownership prompt without the canonical harness;
-3. **bootstrap + canonical harness** — target `WEBCHAT.md` + `HARNESS.md` + launcher;
+3. **bootstrap + canonical harness** — target `WEBCHAT.md` + installed/attached `SKILL.md`;
 4. optionally, a methodology-heavy/skills-loaded variant to test whether extra scaffolding helps or causes instruction drift.
 
 When comparing models, keep the target repository, starting commit, adapter, harness version, and task constant.
@@ -94,6 +100,7 @@ When comparing models, keep the target repository, starting commit, adapter, har
 Preserve only externally reviewable evidence where practical:
 
 - model/surface;
+- declared operational turn budget for long runs and whether closeout/handoff completed before termination;
 - harness + adapter version/content;
 - target repository + starting commit;
 - resulting branch/PR/commits;
