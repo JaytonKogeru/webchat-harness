@@ -1,108 +1,103 @@
 # webchat-harness
 
-A **thin, native harness for ChatGPT Web + GitHub** that turns a strong Web Chat model into a repository-grounded autonomous engineering/research agent **without adding a local MCP server, browser automation layer, shell daemon, or second coordinator agent**.
+A **thin native harness for ChatGPT Web + GitHub** that helps a strong Web Chat model act as a repository-grounded autonomous engineering/research owner **without adding a local MCP server, browser automation layer, shell daemon, or second coordinator agent**.
 
-The core idea is deliberately small:
+The design is deliberately small:
 
-> **The project is the unit of work. The live repository is the source of truth. The model owns the outcome. The harness defines only the operating invariants that help a frontier model keep auditing, acting, verifying, and re-auditing until the project is genuinely deliverable.**
+> **Universal behavior lives in one canonical harness. Project identity lives in the target repository. A Pro model owns the outcome.**
 
-## Why this exists
+## Core idea
 
-ChatGPT Web can already read and modify GitHub repositories, create branches and pull requests, inspect diffs and repository state, and reason for a long time in one turn. The missing piece is not another coding runtime. It is a compact, reusable **semantic control layer** that helps the model:
+ChatGPT Web already has strong reasoning and native GitHub actions. The harness should not teach a frontier model a giant coding methodology. It should only reduce the failure modes that matter for autonomous project work:
 
-- take project-level ownership rather than behave like a ticket worker;
-- audit the real repository before trusting existing plans or architecture;
-- bias toward action instead of stopping at analysis or a proposal;
-- re-evaluate priorities after material changes instead of mechanically draining a stale plan;
-- reuse, simplify, consolidate, replace, or delete before inventing new infrastructure;
-- distinguish implementation from verified completion;
-- avoid claiming tests, provenance, evidence, or review that did not actually occur;
-- stop only at a real terminal condition rather than at a plan, commit, PR, or partial success.
+- optimizing the wrong thing;
+- trusting stale plans over the live repository;
+- stopping at analysis, planning, a PR, or partial success;
+- mechanically draining an old task queue after priorities changed;
+- building unnecessary infrastructure instead of reusing/simplifying;
+- claiming verification that did not actually occur;
+- failing to re-audit after material changes;
+- stopping before a real terminal condition.
 
-This is designed for strong Web Chat models such as GPT-6 Pro/Astra, but the protocol is intentionally model-agnostic.
+## Two-stage use
 
-## What this project is *not*
+### 1. Bootstrap the target repository
 
-`webchat-harness` is intentionally **not**:
+Use [`BOOTSTRAP.md`](BOOTSTRAP.md) once with a capable reasoning model such as **GPT-5.6 Sol Extra High**.
 
-- a local coding agent runtime;
-- an MCP filesystem/shell server;
-- a browser-automation wrapper around chatgpt.com;
-- a replacement for Codex, Claude Code, OpenHands, SWE-agent, or similar execution environments;
-- a large library of role-play skills;
-- a mandatory PRD/TDD/issue workflow;
-- an attempt to teach a frontier model generic software-engineering knowledge it already has.
+The bootstrap step does **not** own or advance the whole project. It inspects the target repository and creates a short root-level `WEBCHAT.md` adapter containing only project-local information:
 
-If the native ChatGPT Web + GitHub surface can already do something well, this project should not reimplement it.
+- actual objective;
+- meaningful progress signals;
+- hard project/domain truths;
+- source-of-truth map;
+- verification surfaces;
+- authority boundaries.
 
-## The native loop
+This prevents every expensive Pro run from having to infer project identity from a noisy repository from scratch.
+
+### 2. Run the autonomous owner
+
+Use a Pro-tier model such as **GPT-6 Pro/Astra or GPT-5.6 Sol Pro** with the launcher in [`LAUNCH.md`](LAUNCH.md).
+
+The Pro run loads:
 
 ```text
-load canonical harness
-        ↓
-inspect the target repository and external evidence
-        ↓
-first-principles project audit
-        ↓
-identify the highest-value resolvable gap
-        ↓
-decide whether to act, simplify, reuse, replace, or delete
-        ↓
-implement / research / repair
-        ↓
-verify with evidence available through the live environment
-        ↓
-adversarially review the result
-        ↓
-re-audit the project from its new state
-        ↓
-material gap remains? ── yes ──↺
-        │
-        no
-        ↓
-diminishing returns or genuine external blocker
-        ↓
-stop
+canonical HARNESS.md
+        +
+target WEBCHAT.md
+        +
+live target repository/evidence
 ```
 
-The loop is **audit-driven**, not plan-driven. Plans, issues, PRDs, work packets, milestones, commits, and PRs are optional intermediate artifacts. They never become the definition of completion by themselves.
+Then it owns the project outcome through:
+
+```text
+objective → inspect → audit → choose → act → verify → adversarial review → re-audit
+   ↑                                                                        │
+   └────────────────────────────────────────────────────────────────────────┘
+```
+
+The model chooses the appropriate engineering/research method. Plans, Issues, PRDs, work packets, commits, and PRs are optional intermediate artifacts, not definitions of completion.
 
 ## Repository layout
 
-- [`HARNESS.md`](HARNESS.md) — canonical operating contract; intentionally short.
-- [`LAUNCH.md`](LAUNCH.md) — copy/paste launchers for starting a native Web Chat ownership run.
-- [`research/LANDSCAPE.md`](research/LANDSCAPE.md) — prior-art audit and project boundary.
-- [`evals/README.md`](evals/README.md) — behavioral evaluation plan for premature stopping, scope drift, false verification, stale-plan lock-in, and related failure modes.
-- [`AGENTS.md`](AGENTS.md) — map for agents working *on this harness repository itself*.
+- [`HARNESS.md`](HARNESS.md) — canonical universal operating contract.
+- [`BOOTSTRAP.md`](BOOTSTRAP.md) — one-time target-repository integration prompt and `WEBCHAT.md` shape.
+- [`LAUNCH.md`](LAUNCH.md) — copy/paste launch/resume/review prompts for Pro ownership runs.
+- [`research/LANDSCAPE.md`](research/LANDSCAPE.md) — prior-art audit and non-duplication boundary.
+- [`evals/README.md`](evals/README.md) — generic behavioral evaluation criteria.
+- [`AGENTS.md`](AGENTS.md) — instructions for agents modifying this harness repository itself.
+
+## What this project is not
+
+`webchat-harness` is intentionally **not**:
+
+- a local coding/runtime environment;
+- an MCP filesystem/shell server;
+- a browser driver around chatgpt.com;
+- a second-agent coordinator;
+- a replacement for Codex, Claude Code, OpenHands, SWE-agent, Rel.AI, or WebGPT Orchestrator;
+- a large role/skill router;
+- a mandatory PRD/TDD workflow;
+- an attempt to encode generic senior-engineer knowledge the frontier model already has.
+
+If an existing mature project already solves a capability better, use it rather than rebuilding it here.
 
 ## Design rule: thin harness, strong model
 
-The harness should constrain only failure modes that remain important at frontier-model capability levels. It should not prescribe a long sequence of generic coding rituals.
+The universal contract should stay small enough to audit as a whole. Project-specific truths belong in the target repository's `WEBCHAT.md` and existing authoritative files. Generic procedural instruction should be added only when field evidence shows a recurring failure that the model does not reliably correct itself.
 
-Project-specific scientific, product, architectural, safety, or operational truths belong in the **target repository**, not in the universal harness. The canonical harness stays the same across projects.
+## Prior-art boundary
 
-## Using it with a target repository
+ChatGPT Web harnessing is not a new category. The closest systems found so far are documented in [`research/LANDSCAPE.md`](research/LANDSCAPE.md), including WebGPT Orchestrator, durable ChatGPT Web workflow skills, and local MCP/runtime harnesses.
 
-The preferred mode is **central canonical contract + explicit launch**. A target repository does not need to vendor a copy of `HARNESS.md`.
+The narrower product hypothesis here is:
 
-Start a new standard Web Chat with the GitHub connection available and use the launcher in [`LAUNCH.md`](LAUNCH.md), replacing `<owner/repo>` with the target repository. The launcher tells the model to load the latest canonical `HARNESS.md`, then read the target repository's own instructions and live state.
+> **native standard ChatGPT Web + native GitHub connector + no required local runtime/browser driver/second agent + a thin project-ownership semantic contract + a small target-repository adapter for frontier models.**
 
-A target repo may optionally add a small pointer in `AGENTS.md`, but project-specific instructions must not fork or duplicate the universal contract unless there is a deliberate, documented override.
-
-## Prior-art verdict
-
-This project is **not being built from a blank landscape**. Several strong projects already make ChatGPT Web more agentic, including local MCP runtimes, browser-driven orchestration, durable workflow skills, and file-backed harnesses.
-
-The closest systems found so far are documented in [`research/LANDSCAPE.md`](research/LANDSCAPE.md). None found in the current audit targets exactly this combination:
-
-1. ordinary/native ChatGPT Web as the reasoning surface;
-2. the native GitHub connector as the repository action layer;
-3. no required local runtime, MCP server, browser driver, API adapter, or second agent;
-4. project-level ownership and first-principles re-audit rather than a fixed ticket/PR workflow;
-5. a deliberately small semantic kernel plus behavioral evals for frontier models.
-
-That narrow boundary is the reason this repository is worth building. If a mature project is later found that fully covers it, this project should integrate, narrow, or stop rather than duplicate it.
+That boundary should remain sharp. If this repository starts growing a local runtime, browser automation stack, workflow engine, or generic skill marketplace, it is probably duplicating a stronger existing wheel.
 
 ## Status
 
-**v0.1 design scaffold.** The first goal is to validate the semantic contract and evaluation method before building any installer, CLI, package, router, or skill ecosystem.
+**v0.2 design scaffold.** Current priority is validating the two-stage bootstrap/ownership pattern on real repositories before building any installer, CLI, package, or plugin ecosystem.
