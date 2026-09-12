@@ -1,54 +1,46 @@
-# webchat-harness
+# webchat-harness — retired
 
-A **thin Agent Skill for autonomous repository ownership in ChatGPT Web + GitHub**.
+> **Retired on 2026-09-13.** This repository is preserved as historical prior art. New development has moved to [`JaytonKogeru/PAIS`](https://github.com/JaytonKogeru/PAIS).
 
-The repository is the canonical development source. The installed/attached [`SKILL.md`](SKILL.md) is the runtime interface. Users should not need to ask a model to open several files in this repository on every run.
+`webchat-harness` explored a thin semantic layer for making ordinary ChatGPT Web + GitHub behave more like an autonomous repository owner.
 
-## Use
+The experiment produced several useful principles:
 
-Once the skill is installed or attached to the ChatGPT Project, the normal commands are intentionally tiny:
+- reconstruct current reality from the live repository and authoritative evidence;
+- optimize the real project outcome rather than blindly execute stale plans;
+- continue while material autonomous work remains;
+- verify material actions with evidence actually available;
+- persist state that must survive a session boundary;
+- reassess priorities after meaningful changes;
+- prefer reuse, simplification, replacement, or deletion over unnecessary construction.
+
+Those ideas have been absorbed into PAIS as general operating principles. The standalone harness is no longer differentiated enough to justify separate maintenance: repository harness engineering, durable checkpoints, cross-session continuation, acceptance evidence, and repo-as-truth patterns now have substantial native and open-source prior art.
+
+## What happens to the old artifacts?
+
+They remain in this repository for historical reference:
+
+- `SKILL.md` — the final skill-first runtime experiment;
+- `research/LANDSCAPE.md` — the prior-art audit that helped establish the non-duplication boundary;
+- `evals/README.md` — behavioral evaluation ideas;
+- `AGENTS.md` — repository-maintenance guidance from the experiment.
+
+Do not bootstrap new repositories with Web Chat Harness and do not add new features here.
+
+## Successor
+
+PAIS addresses the broader and more durable problem:
 
 ```text
-用 webchat-harness bootstrap <owner/repo>。
+replaceable frontier web model
+        ↓
+replaceable control / gateway plane
+        ↓
+multi-device capability fabric
+        ↓
+durable project + task + machine state
 ```
 
-```text
-用 webchat-harness 接管 <owner/repo>，直接开始。
-```
+The model session is treated as replaceable. Work and authoritative state are not.
 
-Bootstrap creates or refreshes the target repository's short `WEBCHAT.md` adapter. Ownership mode then uses that adapter plus the live repository/evidence to work autonomously toward the real project outcome.
-
-## Install / attach
-
-`webchat-harness` follows the open Agent Skills format: `SKILL.md` is the single runtime entrypoint.
-
-Where ChatGPT Skills are available, install/upload this as a Skill once and invoke it by name. Where Skills are not available on the current account/surface, add `SKILL.md` once to the relevant ChatGPT Project sources (or copy its contents into the Project instructions) rather than repeatedly fetching this GitHub repository during every task.
-
-Model choice is outside the protocol.
-
-## Runtime design
-
-The skill keeps only a small control kernel:
-
-- own the real project outcome;
-- use `WEBCHAT.md` for project identity/context and live authoritative evidence for current reality;
-- choose the highest-value unresolved gap and act autonomously;
-- prefer reuse/simplification over unnecessary construction;
-- verify material work and reassess from the new state;
-- stop only at diminishing returns, a genuine external blocker, or an unauthorized irreversible action;
-- never invent access, evidence, verification, execution, or authority.
-
-Project-specific truth belongs in each target repository's `WEBCHAT.md` and authoritative project files, not in this universal skill.
-
-## Repository layout
-
-- [`SKILL.md`](SKILL.md) — canonical runtime skill: bootstrap + ownership modes.
-- [`research/LANDSCAPE.md`](research/LANDSCAPE.md) — prior-art audit and non-duplication boundary.
-- [`evals/README.md`](evals/README.md) — generic behavioral evaluation criteria.
-- [`AGENTS.md`](AGENTS.md) — instructions for agents modifying this repository itself.
-
-## Boundary
-
-This project is intentionally not a local coding runtime, MCP filesystem/shell server, browser driver, second-agent coordinator, large role/skill router, or mandatory PRD/TDD framework. Existing mature tools should be reused rather than rebuilt.
-
-**Status: v0.3 draft — skill-first packaging for real project trials.**
+See: [`JaytonKogeru/PAIS`](https://github.com/JaytonKogeru/PAIS)
